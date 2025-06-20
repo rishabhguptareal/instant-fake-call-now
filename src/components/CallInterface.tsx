@@ -16,7 +16,6 @@ const CallInterface = ({ callerName, onEndCall }: CallInterfaceProps) => {
       setCallDuration(prev => prev + 1);
     }, 1000);
 
-    // Play a brief "hello" tone when call starts
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
@@ -45,29 +44,20 @@ const CallInterface = ({ callerName, onEndCall }: CallInterfaceProps) => {
 
   const getCallerEmoji = (name: string) => {
     const emojiMap: { [key: string]: string } = {
-      'Mom': '👩‍🦳',
-      'Dad': '👨‍🦲',
-      'Wife': '👩‍❤️‍👨',
-      'Husband': '👨‍❤️‍👩',
-      'Boss': '👔',
-      'Jake': '👨',
-      'Sarah': '👩',
+      'Mom': '👩',
+      'Work': '💼',
+      'Friend': '👋',
       'Doctor': '👨‍⚕️',
-      'Emergency': '🚨',
-      'Unknown': '❓',
     };
     return emojiMap[name] || '👤';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-black to-green-800 flex flex-col">
-      {/* Status bar */}
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       <div className="flex justify-between items-center p-4 text-white text-sm">
-        <div className="flex items-center space-x-1">
-          <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-          <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-          <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-          <span className="ml-2 text-green-400">On Call</span>
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span className="text-green-400">Connected</span>
         </div>
         <div className="font-mono">{formatDuration(callDuration)}</div>
         <div className="flex items-center space-x-1">
@@ -78,34 +68,31 @@ const CallInterface = ({ callerName, onEndCall }: CallInterfaceProps) => {
         </div>
       </div>
 
-      {/* Caller info */}
       <div className="flex-1 flex flex-col items-center justify-center px-8">
-        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-400 to-blue-600 flex items-center justify-center mb-8 shadow-2xl">
-          <div className="text-6xl">{getCallerEmoji(callerName)}</div>
+        <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-6 shadow-lg">
+          <div className="text-4xl">{getCallerEmoji(callerName)}</div>
         </div>
         
-        <h1 className="text-3xl font-light text-white mb-2">{callerName}</h1>
-        <p className="text-lg text-green-300 mb-4">{formatDuration(callDuration)}</p>
-        <p className="text-gray-400">Connected</p>
+        <h1 className="text-2xl font-light text-white mb-2">{callerName}</h1>
+        <p className="text-lg text-green-300 mb-2">{formatDuration(callDuration)}</p>
+        <p className="text-gray-400 text-sm">Call in progress</p>
 
-        {/* Fake conversation prompts */}
-        <div className="mt-12 text-center max-w-sm">
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-4">
-            <p className="text-white/80 text-sm">💬 "Hey, can you talk right now?"</p>
+        <div className="mt-8 text-center max-w-xs">
+          <div className="bg-gray-800 rounded-lg p-3 mb-3">
+            <p className="text-white/80 text-sm">"Hello, how are you?"</p>
           </div>
-          <div className="bg-green-500/20 backdrop-blur-sm rounded-xl p-4">
-            <p className="text-green-200 text-sm">📞 Perfect timing for your escape!</p>
+          <div className="bg-green-600 rounded-lg p-3">
+            <p className="text-white text-sm">"I'm doing well, thanks!"</p>
           </div>
         </div>
       </div>
 
-      {/* End call button */}
-      <div className="flex justify-center pb-16">
+      <div className="flex justify-center pb-12">
         <Button
           onClick={onEndCall}
-          className="w-20 h-20 rounded-full bg-red-500 hover:bg-red-600 border-4 border-white/20 shadow-2xl"
+          className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 shadow-lg"
         >
-          <PhoneOff className="w-8 h-8 text-white" />
+          <PhoneOff className="w-6 h-6 text-white" />
         </Button>
       </div>
     </div>

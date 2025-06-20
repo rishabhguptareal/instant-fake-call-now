@@ -53,22 +53,24 @@ const Index = () => {
 
   if (callState === 'ended') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
-        <div className="text-white text-center">
-          <div className="text-6xl mb-4">📞</div>
-          <p className="text-xl">Call Ended</p>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-gray-800 text-center">
+          <div className="text-6xl mb-4">✓</div>
+          <p className="text-xl font-medium">Call Ended</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4">
-      <div className="max-w-md mx-auto">
-        <div className="text-center mb-8 pt-8">
-          <div className="text-6xl mb-4">📞</div>
-          <h1 className="text-3xl font-bold text-white mb-2">Fake Call</h1>
-          <p className="text-gray-300">Need an instant escape? Get a fake call now!</p>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-sm mx-auto px-6 py-12">
+        <div className="text-center mb-12">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="text-2xl">📞</div>
+          </div>
+          <h1 className="text-2xl font-semibold text-gray-900 mb-3">Quick Call</h1>
+          <p className="text-gray-600 leading-relaxed">Select a contact and receive an instant call when you need it</p>
         </div>
 
         <CallerList
