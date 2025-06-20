@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Phone, PhoneOff, MessageSquare } from 'lucide-react';
 
@@ -11,35 +10,22 @@ interface IncomingCallProps {
 
 const IncomingCall = ({ callerName, onAnswer, onDecline }: IncomingCallProps) => {
   const [isRinging, setIsRinging] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setIsRinging(true);
-    
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    
-    const playRingtone = () => {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      oscillator.frequency.setValueAtTime(700, audioContext.currentTime);
-      oscillator.frequency.setValueAtTime(500, audioContext.currentTime + 0.5);
-      
-      gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-      gainNode.gain.setValueAtTime(0, audioContext.currentTime + 1);
-      
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 1);
-    };
-
-    const ringtoneInterval = setInterval(playRingtone, 2500);
-    playRingtone();
+    // Play Apple ringtone
+    const audio = new window.Audio('/apple_ringtone.mp3');
+    audio.loop = true;
+    audio.volume = 0.7;
+    audio.play();
+    audioRef.current = audio;
 
     return () => {
-      clearInterval(ringtoneInterval);
-      audioContext.close();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
     };
   }, []);
 

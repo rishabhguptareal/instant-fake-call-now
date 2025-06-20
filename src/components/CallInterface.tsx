@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneOff, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
@@ -14,6 +13,11 @@ const CallInterface = ({ callerName, onEndCall }: CallInterfaceProps) => {
   const [isSpeakerOn, setIsSpeakerOn] = useState(false);
 
   useEffect(() => {
+    // Stop ringtone if playing
+    const audio = new window.Audio('/apple_ringtone.mp3');
+    audio.pause();
+    audio.currentTime = 0;
+
     const interval = setInterval(() => {
       setCallDuration(prev => prev + 1);
     }, 1000);
