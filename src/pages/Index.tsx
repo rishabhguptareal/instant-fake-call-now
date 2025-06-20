@@ -69,8 +69,8 @@ const Index = () => {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <div className="text-2xl">📞</div>
           </div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-3">Quick Call</h1>
-          <p className="text-gray-600 leading-relaxed">Select a contact and receive an instant call when you need it</p>
+          <h1 className="text-2xl font-semibold text-gray-900 mb-3">Call Me Now</h1>
+          <p className="text-gray-600 leading-relaxed">Fake a call to escape awkward situations</p>
         </div>
 
         <CallerList

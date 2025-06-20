@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Phone, PhoneOff } from 'lucide-react';
+import { Phone, PhoneOff, MessageSquare } from 'lucide-react';
 
 interface IncomingCallProps {
   callerName: string;
@@ -54,52 +54,72 @@ const IncomingCall = ({ callerName, onAnswer, onDecline }: IncomingCallProps) =>
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col relative">
+    <div className="min-h-screen bg-black flex flex-col relative">
+      {/* Status Bar */}
       <div className="flex justify-between items-center p-4 text-white text-sm">
-        <div>●●● Signal</div>
-        <div className="font-mono">12:34</div>
         <div className="flex items-center space-x-1">
-          <span>100%</span>
+          <div className="flex space-x-1">
+            <div className="w-1 h-1 bg-white rounded-full"></div>
+            <div className="w-1 h-1 bg-white rounded-full"></div>
+            <div className="w-1 h-1 bg-white/50 rounded-full"></div>
+          </div>
+          <span className="ml-2 text-xs">Carrier</span>
+        </div>
+        <div className="font-mono text-sm">12:34</div>
+        <div className="flex items-center space-x-1">
+          <span className="text-xs">100%</span>
           <div className="w-6 h-3 border border-white rounded-sm">
             <div className="w-full h-full bg-green-400 rounded-sm"></div>
           </div>
         </div>
       </div>
 
+      {/* Incoming Call Label */}
       <div className="text-center pt-8 text-white">
         <p className="text-lg opacity-80">Incoming call</p>
       </div>
 
+      {/* Caller Info */}
       <div className="flex-1 flex flex-col items-center justify-center px-8">
         <div className={`transition-transform duration-1000 ${isRinging ? 'animate-pulse' : ''}`}>
-          <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center mb-8 shadow-lg">
-            <div className="text-6xl">{getCallerEmoji(callerName)}</div>
+          <div className="w-40 h-40 bg-gray-800 rounded-full flex items-center justify-center mb-8 shadow-2xl border-4 border-gray-700">
+            <div className="text-7xl">{getCallerEmoji(callerName)}</div>
           </div>
         </div>
         
-        <h1 className="text-3xl font-light text-white mb-2">{callerName}</h1>
-        <p className="text-lg text-gray-300">mobile</p>
+        <h1 className="text-4xl font-light text-white mb-3">{callerName}</h1>
+        <p className="text-lg text-gray-300 mb-1">mobile</p>
+        <p className="text-sm text-gray-400">+1 (555) 123-4567</p>
       </div>
 
-      <div className="flex justify-between items-center px-16 pb-12">
-        <Button
-          onClick={onDecline}
-          className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 shadow-lg"
-        >
-          <PhoneOff className="w-6 h-6 text-white" />
-        </Button>
-        
-        <div className="flex flex-col items-center space-y-2">
-          <div className="text-white/60 text-sm">swipe to answer</div>
-          <div className="w-12 h-1 bg-white/30 rounded-full" />
+      {/* Call Actions */}
+      <div className="pb-12 px-8">
+        <div className="flex justify-center space-x-4 mb-8">
+          <button className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
+            <MessageSquare className="w-5 h-5 text-white" />
+          </button>
         </div>
-        
-        <Button
-          onClick={onAnswer}
-          className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 shadow-lg animate-bounce"
-        >
-          <Phone className="w-6 h-6 text-white" />
-        </Button>
+
+        <div className="flex justify-between items-center px-8">
+          <Button
+            onClick={onDecline}
+            className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 shadow-lg"
+          >
+            <PhoneOff className="w-6 h-6 text-white" />
+          </Button>
+          
+          <div className="flex flex-col items-center space-y-2">
+            <div className="text-white/60 text-sm">slide to answer</div>
+            <div className="w-16 h-1 bg-white/30 rounded-full" />
+          </div>
+          
+          <Button
+            onClick={onAnswer}
+            className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 shadow-lg animate-bounce"
+          >
+            <Phone className="w-6 h-6 text-white" />
+          </Button>
+        </div>
       </div>
     </div>
   );
